@@ -5,7 +5,7 @@
 The **NBA Player Points Predictor** project aims to predict the points scored by NBA players based on various features derived from historical game data. 
 ## Features
 
-- Documentation of the original workflow, including data analysis, feature engineering, visualizations, model seletion, etc.
+- Documentation of the original workflow in the `notebooks` directory, including data analysis, feature engineering, visualizations, model seletion, etc
 - A codebase in the `src` directory engineered to allow users to create custom datasets and train personalized models based on their player of choice and selected parameters.
 
 ## Installation
@@ -25,35 +25,28 @@ For this project I used a conda environment and have included a YAML file with t
   cd NBA-Player-Points-Predictor
   
 3. Install the necessary dependencies. (See bball.yml)
-   create a conda environment using bball.yml
 
-bash
-Copy code
-conda env create -f environment.yml
-Usage
-Jupyter Notebook
-The project includes a Jupyter notebook that documents the entire thought process, from data analysis to model evaluation. You can open this notebook to explore the visualizations and commentary:
+4. Create a virtualenvironment using bball.yml and conda:
+   conda env create -f bball.yml 
 
-Start Jupyter Notebook:
 
-bash
-Copy code
-jupyter notebook
-Open the notebook file (e.g., NBA_Player_Points_Predictor_Analysis.ipynb) and follow along with the analysis.
+## Usage
+### Jupyter Notebook
+The project includes a Jupyter notebook containing a detailed walkthrough of my original workflow, statistical analysis and thought process while developing the model. You can open this notebook to explore the visualizations and commentary. Note that because the model is designed around predicitng a single player's points, I used LeBron James as a benchmark player for most of my analysis and model selection.
 
-Custom Model Training
+## Custom Model Training
 To train your own model based on the player you want to model, navigate to the src directory:
 
-bash
-Copy code
-cd src
-You can use the provided scripts to create your own dataset and train a model by specifying the player and other parameters. Refer to the documentation within the code for specific usage instructions.
+You can use the provided scripts to create your own dataset and train a model by specifying the player and other parameters. 
 
-YAML Configuration
-The project includes a YAML file (environment.yml) in the repository that specifies the dependencies needed for the project. This file can be used to create a conda environment or install dependencies easily.
+1. Collecting Raw Data
+The library I used to collect nba data, nba_api, often timesout if there are multiple queries in a single file, so to create your own dataset you must run 4 different files in the following order: get_model_player_data, get_opp_team_data, get_trad_boxscores, and get_adv_boxscores. Each file contains an argument parser that allows for customization of the data you want to query 
 
-To create a new conda environment from the YAML file, use:
+2. Exporting Functional Dataset
+Once you have saved all the necessary files using the 4 files above in the `data` directory , you can run the export_dataset file located in the `dataset_formation` directory which will then save your dataset to the main `data` directory
 
-bash
-Copy code
-conda env create -f environment.yml
+3. Training Model
+Once you have saved your dataset, you can run the train file within the `model`  directory, which will save your model to the directory.
+
+4. Prediciting Points
+Now that you have trained your model, you can run the predict_points file to predict the points of your chosen player on any given set of games. The file will then return a dataframe contains the prediction as well as the actual points scored (If the game is yet to occur, the actual points value is NA)
