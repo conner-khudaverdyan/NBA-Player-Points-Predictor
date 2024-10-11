@@ -1,0 +1,16 @@
+name: bball
+channels:
+  - defaults
+dependencies:
+  - python=3.9.6   # or specify your preferred Python version
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyter
+  - notebook
+  - scipy
+  - statsmodels
+  - nltk
+  - gensim
