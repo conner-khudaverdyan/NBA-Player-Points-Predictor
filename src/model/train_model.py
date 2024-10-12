@@ -1,11 +1,13 @@
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
+from statsmodels.discrete.discrete_model import NegativeBinomial
+
 import joblib
 
 # Script to Run and Save our Model
 
-def train_model():
+def train_model(model_type = 'rf'):
     try: 
         train_set = pd.read_csv('../data/train_set.csv')
         test_set = pd.read_csv('../data/test_set.csv')
@@ -28,10 +30,16 @@ def train_model():
     X_train = X_train.loc[:, 'Player_PPG_last_5':]
     X_test = X_test.loc[:, 'Player_PPG_last_5':]
 
-    rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
-    rf_model.fit(X_train, y_train)
+    if model_type = 'rf':
+        rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
+        rf_model.fit(X_train, y_train)
 
-    joblib.dump(rf_model, 'model/random_forest_model')
+        joblib.dump(rf_model, 'model/random_forest_model')
+    elif model_type = 'negbinom':
+        negbinom_model = NegativeBinomial(y_train, X_train)
+        nb_fit = negbinom_model.fit()
+        joblib.dump(nb_fit, 'model/negative_binomial_model')
+        
     print("Model training complete and model saved.")
 
 if __name__ == '__main__':

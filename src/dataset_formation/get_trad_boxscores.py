@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import pickle
 import os
+import argparse
 
 from feature_engineering.get_player_data import get_game_ids_by_season, get_player_data
 from nba_api.stats.endpoints import BoxScoreTraditionalV2
@@ -42,10 +43,14 @@ def get_boxscores_data_by_season(seasons, player_game_logs):
         print('Failed to load boxscores. If due to timeout, try again later or with vpn')
         raise
     
-def save_trad_boxscores(seasons, model_player_fullname):
+def save_trad_boxscores(seasonse):
     
     print('Collecting Traditional Boxscores, this may take a few mintes')
-    model_player_data = get_player_data(seasons = seasons, fullname = model_player_fullname)
+    
+    # import model player data form  data directory
+    file_path = os.path.join('..', 'data', 'model_player_data.csv')
+    model_player_data = pd.read_csv(file_path)
+    
     boxscores_data_by_season = get_boxscores_data_by_season(seasons = seasons, player_game_logs= model_player_data)
    
     try: 
@@ -60,5 +65,12 @@ def save_trad_boxscores(seasons, model_player_fullname):
         print('Saved into src directory')
 
 if __name__ == "__main__":
-    seasons = np.arange(2019, 2024, 1)
-    save_trad_boxscores(seasons  = seasons, model_player_fullname = 'LeBron James')
+    parser = argparse.ArgumentParser(description="Enter seasons to gather boxscores data relative to modeled Player.")
+    
+    parser.add_argument('season_range_start', type = int, help = 'First Season that defies range that you want to pool data from e.g.: 2019 refers to 2019-2020 season.')
+    parser.add_argument('season_range_end', type = int, help = 'Last Season that defines range that you want to pool data from, must be greater than or equal to season_range_start. e.g.: if season_range_start is 2019, if you input 2020, the dataset will include data from 2019-2020 and  2020-2021 seasons.')
+    
+    args = parser.parse_args()
+    
+    seasons = np.arange(args.season_range_start, args.season_range_end, 1)
+    save_trad_boxscores(seasons = seasons)
