@@ -10,10 +10,16 @@ from feature_engineering.rolling_averages import RollingAverages
 from feature_engineeringn.get_team_def_off_ratings import OffDefRatings
 
 class DatasetFormer:
-    def __init__(self, seasons, model_player_fullname, factor_teammate_fullname, model_player_data):
+    def __init__(self, seasons, model_player_fullname, factor_teammate_fullname):
         self.seasons = seasons
-        self.model_player_name = model_player_fullname
+        
+        # import model player data form  data directory
+        file_path = os.path.join('..', 'data', 'model_player_data.csv')
+        model_player_data = pd.read_csv(file_path)
+        model_player_data['SEASON_ID'] = model_player_data['SEASON_ID'].astype(str)
+        model_player_data['Game_ID'] = model_player_data['Game_ID'].astype(str)
         self.model_player_data  = model_player_data
+        
         self.factor_teammate_name = factor_teammate_fullname
         
         self.train_set = None

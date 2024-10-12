@@ -60,7 +60,7 @@ def save_opp_team_data(model_player_data):
 
 
 if __name__ == "__main__":
-    seasons = np.arange(2019, 2024, 1)
+    
     file_path = os.path.join('..', 'data', 'model_player_data.csv')
     model_player_data = pd.read_csv(file_path)
     save_opp_team_data(model_player_data)
