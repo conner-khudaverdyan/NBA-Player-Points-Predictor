@@ -19,7 +19,7 @@ For this project I used a conda environment and have included a YAML file with t
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/NBA-Player-Points-Predictor.git
+   git clone https://github.com/conner-khudaverdyan/NBA-Player-Points-Predictor.git
 2. Navigate to the project directory:
    ```bash
    cd NBA-Player-Points-Predictor
