@@ -1,5 +1,5 @@
 # NBA Player Points Predictor
-
+![project_visual](images/points_predictor_graphic.png)
 ## Description
 
 The **NBA Player Points Predictor** project aims to predict the points scored by NBA players based on various features derived from historical game data. 
@@ -43,14 +43,14 @@ You can use the provided scripts to create your own dataset and train a model by
 
 The library I used to collect nba data, `nba_api`, often times out if there are multiple queries in a single file, so to create your own dataset you must run 4 different files in the following order: `get_model_player_data`, `get_opp_team_data`, `get_trad_boxscores`, and `get_adv_boxscores`. Each file contains an argument parser that allows for customization of the data you want to query 
 
-3. *Exporting Functional Dataset*
+2. *Exporting Functional Dataset*
    
 Once you have saved all the necessary files using the 4 files above in the `data` directory , you can run the export_dataset file located in the `dataset_formation` directory which will then save your dataset to the main `data` directory
 
-5. *Training Model*
+3. *Training Model*
    
 Once you have saved your dataset, you can run the train file within the `model`  directory, which will save your model to the directory.
 
-7. *Prediciting Points*
+4. *Prediciting Points*
    
 Now that you have trained your model, you can run the predict_points file to predict the points of your chosen player on any given set of games. The file will then return a dataframe contains the prediction as well as the actual points scored (If the game is yet to occur, the actual points value is NA)
